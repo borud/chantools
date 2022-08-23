@@ -19,7 +19,7 @@ func TestMultiplexer(t *testing.T) {
 		}
 	}()
 
-	m, err := Create(mchan)
+	m, err := NewDemux(mchan)
 	require.NoError(t, err)
 
 	// Close the multiplexer after 20 ms
@@ -62,7 +62,7 @@ func TestUpstreamChannelClose(t *testing.T) {
 		close(mchan)
 	}()
 
-	mplex, err := Create(mchan)
+	mplex, err := NewDemux(mchan)
 	require.NoError(t, err)
 	assert.Equal(t, "*chantools.Demux[int]", reflect.TypeOf(mplex).String())
 

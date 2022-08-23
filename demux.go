@@ -35,8 +35,8 @@ var (
 	ErrTimeout     = errors.New("operation timed out")
 )
 
-// Create a demux for a channel.
-func Create[T message](ch chan T) (*Demux[T], error) {
+// NewDemux a demux for a channel.
+func NewDemux[T message](ch chan T) (*Demux[T], error) {
 	m := &Demux[T]{
 		ch:              ch,
 		subscribeCh:     make(chan Subscriber[T]),
