@@ -7,12 +7,8 @@ import (
 	"time"
 )
 
-type message interface {
-	any
-}
-
 // Demux creates a pub/sub like demux for a read channel.
-type Demux[T message] struct {
+type Demux[T any] struct {
 	ch              <-chan T
 	subscribeCh     chan Subscriber[T]
 	unSubscribeCh   chan uint64
@@ -36,7 +32,7 @@ var (
 )
 
 // NewDemux a demux for a channel.
-func NewDemux[T message](ch chan T) (*Demux[T], error) {
+func NewDemux[T any](ch chan T) (*Demux[T], error) {
 	m := &Demux[T]{
 		ch:              ch,
 		subscribeCh:     make(chan Subscriber[T]),
